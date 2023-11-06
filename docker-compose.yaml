@@ -1,3 +1,9 @@
+networks:
+    front-tier:
+        driver: bridge
+    back-tier:
+        driver: bridge
+
 services:
     api:
         build: ./api
