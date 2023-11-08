@@ -6,16 +6,17 @@ networks:
 
 services:
     api:
-        build: ./api
+        build: ../mes-poc-dotnet-app
         environment:
             - ASPNETCORE_HTTPS_PORT=443
         ports:
             - 5000:80
+            - 5001:443
         networks:
             - front-tier
             - back-tier
     database:
-        build: ./database
+        build: ../mes-poc-database
         environment:
             - MARIADB_AUTO_UPGRADE=1
             - MYSQL_RANDOM_ROOT_PASSWORD=1
@@ -26,3 +27,16 @@ services:
             - ./database/data:/var/lib/mysql
         networks:
             - back-tier
+    rabbitMq:
+        image: rabbitmq:3-management        
+        ports:
+            - 8080:15672
+        environment:
+            - RABBITMQ_DEFAULT_VHOST=derp
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+        container_name: "my-rabbit"
+        hostname: "some-rabbit"
+        networks:
+            - back-tier
+    
