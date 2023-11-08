@@ -10,12 +10,7 @@ services:
             database:
                 condition: service_healthy
         environment:
-            - ASPNETCORE_HTTPS_PORT=443
-            - MYSQL_DB_HOST=${MYSQL_DB_HOST}
-            - MYSQL_DB_PORT=${MYSQL_DB_PORT}
-            - MYSQL_DB_DATABASE=${MYSQL_DB_DATABASE}
-            - MYSQL_DB_USER=${MYSQL_DB_USER}
-            - MYSQL_DB_PASSWORD=${MYSQL_DB_PASSWORD}
+            - MYSQL_CONNECTION_STRING=Server=${MYSQL_DB_HOST}; Port=${MYSQL_DB_PORT}; Uid=${MYSQL_DB_USER}; Pwd=${MYSQL_DB_PASSWORD}; Database=${MYSQL_DB_DATABASE}
         ports:
             - 5000:80
         networks:
