@@ -5,7 +5,7 @@ volumes:
     db-data:
 services:
     api:
-        build: ./api
+        build: ./mes-poc-dotnet-app
         depends_on:
             database:
                 condition: service_healthy
@@ -20,7 +20,7 @@ services:
         networks:
             - backend
     database:
-        build: ./database
+        build: ./mes-poc-database
         healthcheck:
             test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
             start_period: 10s
