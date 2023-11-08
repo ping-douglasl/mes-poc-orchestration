@@ -1,28 +1,41 @@
 networks:
-    front-tier:
+    backend:
         driver: bridge
-    back-tier:
-        driver: bridge
-
+volumes:
+    db-data:
 services:
     api:
         build: ./api
+        depends_on:
+            database:
+                condition: service_healthy
         environment:
             - ASPNETCORE_HTTPS_PORT=443
+            - MYSQL_DB_HOST=${MYSQL_DB_HOST}
+            - MYSQL_DB_PORT=${MYSQL_DB_PORT}
+            - MYSQL_DB_DATABASE=${MYSQL_DB_DATABASE}
+            - MYSQL_DB_USER=${MYSQL_DB_USER}
+            - MYSQL_DB_PASSWORD=${MYSQL_DB_PASSWORD}
         ports:
             - 5000:80
         networks:
-            - front-tier
-            - back-tier
+            - backend
     database:
         build: ./database
+        healthcheck:
+            test: [ "CMD", "healthcheck.sh", "--connect", "--innodb_initialized" ]
+            start_period: 10s
+            interval: 5s
+            timeout: 3s
+            retries: 10
         environment:
-            - MARIADB_AUTO_UPGRADE=1
-            - MYSQL_RANDOM_ROOT_PASSWORD=1
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DB_DATABASE}
+            - MYSQL_USER=${MYSQL_DB_USER}
+            - MYSQL_PASSWORD=${MYSQL_DB_PASSWORD}
         volumes:
-            - ./database/data:/var/lib/mysql
+            - db-data:/var/lib/mysql
+        ports:
+            - 3306:3306
         networks:
-            - back-tier
+            - backend
