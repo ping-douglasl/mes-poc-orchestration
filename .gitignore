@@ -1,3 +1,5 @@
 mes-poc-database/
 mes-poc-dotnet-app/
 mes-poc-orchestration.sln
+/.vs
+.env

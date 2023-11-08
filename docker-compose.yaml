@@ -1,5 +1,5 @@
 networks:
-    backend:
+    back-tier:
         driver: bridge
 volumes:
     db-data:
@@ -17,8 +17,9 @@ services:
             - MYSQL_PASSWORD=${MYSQL_DB_PASSWORD}
         ports:
             - 5000:80
+            - 5001:443
         networks:
-            - backend
+            - back-tier
     database:
         build: ./mes-poc-database
         healthcheck:
@@ -37,4 +38,14 @@ services:
         ports:
             - 3306:3306
         networks:
-            - backend
+            - back-tier
+    rabbit_mq:
+        image: rabbitmq:3-management        
+        ports:
+            - 8080:15672
+        environment:
+            - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_VHOST}
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+        networks:
+            - back-tier
