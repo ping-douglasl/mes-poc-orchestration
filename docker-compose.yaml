@@ -9,9 +9,6 @@ volumes:
     db-data:
 
 services:
-    load-balancer:
-        image: nginx:latest
-        
     api:
         build: ./mes-poc-dotnet-app
         depends_on:
@@ -30,7 +27,6 @@ services:
             - front-tier
             - back-tier
         labels:
-            kompose.service.expose: 
             kompose.service.type: LoadBalancer
 
     database:
