@@ -1,9 +1,17 @@
 networks:
+    front-tier:
+        driver:
+            bridge
     back-tier:
         driver: bridge
+
 volumes:
     db-data:
+
 services:
+    load-balancer:
+        image: nginx:latest
+        
     api:
         build: ./mes-poc-dotnet-app
         depends_on:
@@ -19,7 +27,12 @@ services:
             - 5000:80
             - 5001:443
         networks:
+            - front-tier
             - back-tier
+        labels:
+            kompose.service.expose: 
+            kompose.service.type: LoadBalancer
+
     database:
         build: ./mes-poc-database
         healthcheck:
@@ -33,13 +46,15 @@ services:
             - MYSQL_DATABASE=${MYSQL_DB_DATABASE}
             - MYSQL_USER=${MYSQL_DB_USER}
             - MYSQL_PASSWORD=${MYSQL_DB_PASSWORD}
+            - MYSQL_PORT=3306
         volumes:
             - db-data:/var/lib/mysql
         ports:
             - 3306:3306
         networks:
             - back-tier
-    rabbit_mq:
+    
+    rabbit-mq:
         image: rabbitmq:3-management        
         ports:
             - 8080:15672
