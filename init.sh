@@ -20,6 +20,13 @@ if [ $? -eq 0 ]; then
 fi
 kubectl create configmap "$CONFIG_MAP_NAME" --from-env-file="$CONFIG_MAP_DATA_FILE"
 
+# Set up the "mes-poc-api-gateway" component.
+if ! [ -d "mes-poc-api-gateway" ]; then
+  git clone git@github.com:ping-douglasl/mes-poc-api-gateway.gitX
+fi
+./mes-poc-api-gateway/build.sh
+./mes-poc-api-gateway/deploy.sh
+
 # Set up the "mes-poc-database" component.
 if ! [ -d "mes-poc-database" ]; then
   git clone git@github.com:ping-douglasl/mes-poc-database.git

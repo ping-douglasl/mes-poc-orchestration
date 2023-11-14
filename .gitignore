@@ -1,5 +1,6 @@
 mes-poc-database/
 mes-poc-dotnet-app/
+mes-poc-api-gateway/
 k8s/
 mes-poc-orchestration.sln
 /.vs

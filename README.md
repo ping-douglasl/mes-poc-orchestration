@@ -3,6 +3,7 @@ This project is the _front door_ to the MES POC system. The system is composed o
 
 # Pre-requisites
 * Have Docker Desktop installed locally and running.
+* Ensure that Docker Desktop is configured to run a local Kubernetes server.
 
 # Getting Started
 ## For VS Code
@@ -23,19 +24,13 @@ TBD
 
 # Get the Environment Up and Running
 ## Set Environment Variables
-1. Copy the `.env-dist` file to `.env`
+1. Copy the `.config-dist` file to `.config`
 1. Modify the new `.env` file to fit your configuration.
+1. Copy the `.secret-dist` file to `.secret`
+1. Modify the new `.secret` file to fit your configuration.
+1. Run `bash ./init.sh`
 
-## Using Docker Compose
-1. Run `bash ./init.sh compose`
-
-## Using Kubernetes
-1. Install Kompose in your WSL Container
-1. Run `curl -L https://github.com/kubernetes/kompose/releases/download/v1.31.2/kompose-linux-amd64 -o kompose`
-1. Run `bash ./init.sh kompose`
-
-You should now have cloned all the component project repositories to your local machine and docker containers should be spun up.
-From here, make any code changes you need to any of the project.
+This should clone the component projects to assemble the network, build necessary Docker images, and deploy to Kubernetes.
 
 # Extras
 ## Cleaning
