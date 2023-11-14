@@ -20,7 +20,11 @@ This project is the _front door_ to the MES POC system. The system is composed o
   sudo apt-get install -y dotnet-sdk-7.0`
 
 ## For Visual Studio
-TBD
+1. Make sure you have Docker support installed in Visual Studio.
+2. See the section *Get the Environment Up and Running* to get the app running.
+3. You can debug by openining the Containers window (View -> Other windows -> Containers). 
+4. Select the container you wish to debug. It will have a name like *k8s_mes-dotnet-app_mes-dotnet-app-7d58788746-rk8k4_default_02fc5a7e-27db-4071-b5bb-7eefc3b2e3ec_2*
+5. Disable Just my Code to ensure symbols will load. Breakpoints can be set like normal.
 
 # Get the Environment Up and Running
 ## Set Environment Variables
