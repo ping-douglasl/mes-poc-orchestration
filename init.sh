@@ -22,21 +22,21 @@ kubectl create configmap "$CONFIG_MAP_NAME" --from-env-file="$CONFIG_MAP_DATA_FI
 
 # Set up the "mes-poc-api-gateway" component.
 if ! [ -d "mes-poc-api-gateway" ]; then
-  git clone git@github.com:ping-douglasl/mes-poc-api-gateway.git
+  git clone https://github.com/ping-douglasl/mes-poc-api-gateway.git
 fi
 ./mes-poc-api-gateway/build.sh
 ./mes-poc-api-gateway/deploy.sh
 
 # Set up the "mes-poc-database" component.
 if ! [ -d "mes-poc-database" ]; then
-  git clone git@github.com:ping-douglasl/mes-poc-database.git
+  git clone https://github.com/ping-douglasl/mes-poc-database.git
 fi
 ./mes-poc-database/build.sh
 ./mes-poc-database/deploy.sh
 
 # Set up the "mes-poc-dotnet-app" component.
 if ! [ -d "mes-poc-dotnet-app" ]; then
-  git clone git@github.com:ping-douglasl/mes-poc-dotnet-app.git
+  git clone https://github.com/ping-douglasl/mes-poc-dotnet-app.git
 fi
 ./mes-poc-dotnet-app/build.sh
 ./mes-poc-dotnet-app/deploy.sh
