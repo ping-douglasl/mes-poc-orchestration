@@ -15,9 +15,6 @@ This project is the _front door_ to the MES POC system. The system is composed o
  - Go to `Features` > `Terminal` and select `Ubuntu (WSL)` from the drop down. ![Alt text](docs/vscode-wsl.png)
 4. Configure Docker to use WSL
  - `Settings` > `Resources` > `WSL Integration` - Check the box and toggle the switch for `Ubuntu`![Alt text](docs/docker-wsl.png)
-5. Install dotnet sdk in WSL 
- - `sudo apt-get update && \
-  sudo apt-get install -y dotnet-sdk-7.0`
 
 ## For Visual Studio
 1. Make sure you have Docker support installed in Visual Studio.
